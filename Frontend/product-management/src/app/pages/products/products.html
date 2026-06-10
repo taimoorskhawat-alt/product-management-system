@@ -1,0 +1,77 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+  <h2>
+    Product List
+  </h2>
+@if (role==='Admin') {
+  <a
+    routerLink="/add-product"
+    class="btn btn-dark">
+
+    Add Product
+
+  </a>}
+
+</div>
+
+<div class="card shadow-sm">
+
+  <div class="card-body">
+
+    <table class="table table-hover">
+
+      <thead class="table-dark">
+
+        <tr>
+
+          <th>ID</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Category</th>
+          <th>Brand</th>
+          <th>Quantity</th>
+          <th>ItemCode</th>
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @for(product of productdata(); track product.id) {
+
+          <tr>
+
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>{{ product.category }}</td>
+            <td>{{ product.brand}}</td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.itemCode }}</td>
+            
+
+            <td>
+@if (role==='Admin') {
+              <button class="btn btn-sm btn-warning me-2" (click)="editproducts(product.id)">
+                Edit
+              </button>
+
+              <button class="btn btn-sm btn-danger" (click)="deleteproducts(product.id)">
+                Delete
+              </button>}
+
+            </td>
+
+          </tr>
+
+        }
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

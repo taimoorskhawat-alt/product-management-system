@@ -1,0 +1,97 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+  <div class="container-fluid">
+
+    <a class="navbar-brand" routerLink="/">
+      ProductMS
+    </a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/home">
+            Home
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products">
+            Products
+          </a>
+        </li>
+    <li class="nav-item">
+          <a class="nav-link" routerLink="/about">
+            About
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact">
+            Contact
+          </a>
+        </li>
+
+       
+
+    @if (isLoggedIn()) {
+
+<li class="nav-item position-relative">
+
+  <button
+    class="nav-link border-0 bg-transparent text-white"
+    type="button"
+    (click)="toggleDropdown()">
+
+    {{getUserName()}} ▼
+
+  </button>
+
+  @if (dropdownOpen) {
+
+  <div
+    class="dropdown-menu show position-absolute end-0 mt-2"
+    style="display:block;">
+
+    <a class="dropdown-item" routerLink="/products" (click)="closeDropdown()">
+      Products
+    </a>
+
+    <hr class="dropdown-divider">
+
+    <button
+      class="dropdown-item text-danger"
+      (click)="logout()">
+
+      Logout
+
+    </button>
+
+  </div>
+
+  }
+
+</li>
+
+}
+
+
+    
+      </ul>
+
+    </div>
+
+  </div>
+
+</nav>

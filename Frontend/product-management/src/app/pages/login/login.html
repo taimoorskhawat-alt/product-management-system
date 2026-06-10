@@ -1,0 +1,29 @@
+<div class="auth-container">
+
+  <div class="auth-card">
+
+    <h2>Welcome Back</h2>
+    <p>Login to your account</p>
+
+    <form [formGroup]="form" (ngSubmit)="login()">
+
+      <label>Email</label>
+      <input type="email" formControlName="email" placeholder="Enter email" />
+
+      <label>Password</label>
+      <input type="password" formControlName="password" placeholder="Enter password" />
+
+      <button type="submit" [disabled]="form.invalid">
+        Login
+      </button>
+
+    </form>
+
+    <p class="link">
+      Don't have an account?
+      <a routerLink="/register">Sign up</a>
+    </p>
+
+  </div>
+
+</div>
