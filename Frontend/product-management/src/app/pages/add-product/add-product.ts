@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { Prodcts } from '../../services/productinterface';
-import { Product } from '../../services/productservice';
+import {  ProductService } from '../../services/productservice';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { required } from '@angular/forms/signals';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-product',
@@ -24,13 +24,13 @@ export class AddProduct {
     description:''
   };
 
-  constructor(private productService:Product, private router:Router) {}
+  constructor(private productService:ProductService, private router:Router,private toastr:ToastrService) {}
 
  productForm = new FormGroup({
 
   itemCode: new FormControl('',[Validators.required,Validators.minLength(2)]),
 
-  name: new FormControl('',[Validators.required]),
+  name: new FormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]+$')]),
 
   category: new FormControl('',[Validators.required]),
 
@@ -59,9 +59,9 @@ export class AddProduct {
     };
 
     this.productService.addProduct(product).subscribe({
-      next: (res) => {
-        console.log("Added:", res);
-        alert("Product added successfully!");
+      next: () => {
+      
+        this.toastr.success('Product Added Successfully','Success')
 
         this.productForm.reset();
         this.router.navigate(['/products'])

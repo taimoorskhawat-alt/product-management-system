@@ -1,0 +1,235 @@
+<div class="container mt-4">
+
+  <div class="card shadow border-0">
+
+```
+<div class="card-header bg-dark text-white">
+  <h4 class="mb-0">User & Role Management</h4>
+  <small>Manage users, roles and permissions</small>
+</div>
+
+<div class="card-body">
+
+  <!-- Add Role -->
+  <div class="row g-2 mb-4">
+
+    <div class="col-md-8">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Enter new role name"
+        [(ngModel)]="newRoleName">
+    </div>
+
+    <div class="col-md-4">
+      <button
+        class="btn btn-success w-100"
+        (click)="addRole()">
+        Add Role
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Roles -->
+  <div class="mb-4">
+
+    <h6 class="fw-bold mb-3">Available Roles</h6>
+
+    <div class="d-flex flex-wrap gap-2">
+
+      @for(role of roles; track role.id) {
+
+        <div class="border rounded-pill px-3 py-2 d-flex align-items-center gap-2">
+
+          <span>{{ role.name }}</span>
+
+          <button
+            class="btn btn-sm btn-outline-warning"
+            (click)="editRole(role)">
+            ✏️
+          </button>
+
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteRole(role.id)">
+            🗑️
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  </div>
+  @if(editMode) {
+
+<div class="card mt-3 border-warning">
+
+  <div class="card-body">
+
+    <h5>Edit Role</h5>
+
+    <input
+      type="text"
+      class="form-control mb-3"
+      [(ngModel)]="selectedRole.name">
+
+    <div class="d-flex gap-2">
+
+      <button
+        class="btn btn-success"
+        (click)="updaterole()">
+
+        Save Changes
+
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        (click)="editMode = false">
+
+        Cancel
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+}
+
+  <hr>
+
+  <!-- USER TABLE STARTS HERE -->
+
+</div>
+```
+
+  </div>
+
+</div>
+
+
+<div class="container mt-4">
+
+ 
+
+    <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+      <div>
+        <h4 class="mb-0">User Management</h4>
+        <small>Manage user roles and permissions</small>
+      </div>
+
+
+</div>
+      <span class="badge bg-light text-dark">
+        Total Users: {{ users.length }}
+      </span>
+    </div>
+
+    <div class="card-body">
+
+      <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Current Role</th>
+              <th width="250">Change Role</th>
+              <th width="150">Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            @for(user of users; track user.id; let i = $index) {
+
+            <tr>
+
+              <td>{{ i + 1 }}</td>
+
+              <td>
+                <div class="fw-semibold">
+                  {{ user.name }}
+                </div>
+              </td>
+
+              <td>{{ user.email }}</td>
+
+              <td>
+
+                @if(user.role === 'Admin') {
+                <span class="badge bg-danger">
+                  Admin
+                </span>
+                }
+
+                @else if(user.role === 'Accountant') {
+                <span class="badge bg-warning text-dark">
+                  Accountant
+                </span>
+                }
+
+                @else {
+                <span class="badge bg-secondary">
+                  User
+                </span>
+                }
+
+              </td>
+
+              <td>
+
+                <select [(ngModel)]="user.role">
+
+                  @for (role of roles; track role.id) {
+                  <option [value]="role.name">
+                    {{ role.name }}
+                  </option>
+                  }
+
+                </select>
+
+              </td>
+
+              <td>
+
+                <button class="btn btn-primary w-100" (click)="updateRole(user)">
+
+                  Update
+
+                </button>
+
+              </td>
+
+            </tr>
+
+            }
+
+            @empty {
+
+            <tr>
+              <td colspan="6" class="text-center py-4 text-muted">
+                No users found
+              </td>
+            </tr>
+
+            }
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+ 

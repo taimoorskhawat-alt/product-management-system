@@ -10,6 +10,9 @@ import { Contact } from './pages/contact/contact';
 import { Login,} from './pages/login/login';
 import { authGuard } from './auth-guard';
 import { Register } from './pages/register/register';
+import { ProductDetails } from './pages/product-details/product-details';
+import { Usermanagement } from './pages/usermanagement/usermanagement';
+import { adminGuard } from '../admin-guars';
 
 export const routes: Routes = [
     { path: '', redirectTo:'login', pathMatch:'full' },
@@ -20,6 +23,8 @@ export const routes: Routes = [
     {path:'login',component:Login},
     { path: 'about', component: About },
     { path: 'contact', component: Contact },
-    {path:'register',component:Register}
+    {path:'register',component:Register},
+    {path: 'product-details/:id',component: ProductDetails},
+    {path:'users',component:Usermanagement,canActivate:[adminGuard]}
 
 ]

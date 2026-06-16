@@ -36,4 +36,11 @@ export class AuthService {
 
   return payload["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 }
+getTokenExpiry(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return Date.now() < payload.exp * 1000;
+  }
 }

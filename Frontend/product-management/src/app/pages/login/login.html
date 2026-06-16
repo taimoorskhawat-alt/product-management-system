@@ -13,8 +13,12 @@
       <label>Password</label>
       <input type="password" formControlName="password" placeholder="Enter password" />
 
-      <button type="submit" [disabled]="form.invalid">
-        Login
+      <button type="submit" [disabled]="isLoading||form.invalid">
+        @if (isLoading) {
+    Logging in...
+  } @else {
+    Login
+  }
       </button>
 
     </form>

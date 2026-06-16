@@ -9,4 +9,5 @@ public class appdbcontext : DbContext
     {       }
     public DbSet<Product> products { get; set; }
     public DbSet<User> users { get; set; }
+    public DbSet<Role> Roles { get; set; }
 }

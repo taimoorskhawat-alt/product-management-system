@@ -46,7 +46,7 @@ namespace prodAPIPrac2.Controllers
             var newpro = await _serv.Addpro(pro);
             return Ok(newpro);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin0")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Product>>updatepro(int id,Product updatepro)
         {
@@ -70,5 +70,6 @@ namespace prodAPIPrac2.Controllers
           
             return Ok(new {message="product Deleted Successfully"});
         }
+
     }   
 }

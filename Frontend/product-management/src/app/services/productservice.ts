@@ -5,7 +5,7 @@ import { Prodcts } from './productinterface';
 @Injectable({
   providedIn: 'root',
 })
-export class Product {
+export class ProductService {
 
   apiurl = "https://localhost:7070/api/prod";
 

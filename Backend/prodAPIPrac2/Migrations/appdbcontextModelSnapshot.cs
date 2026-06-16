@@ -56,6 +56,23 @@ namespace prodAPIPrac2.Migrations
                     b.ToTable("products");
                 });
 
+            modelBuilder.Entity("prodAPIPrac2.Models.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Roles");
+                });
+
             modelBuilder.Entity("prodAPIPrac2.Models.User", b =>
                 {
                     b.Property<int>("Id")

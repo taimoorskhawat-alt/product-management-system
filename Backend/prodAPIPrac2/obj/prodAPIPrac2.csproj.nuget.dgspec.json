@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\dotnet\\prodAPIPrac2\\prodAPIPrac2.csproj": {}
+    "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\prodAPIPrac2.csproj": {}
   },
   "projects": {
-    "D:\\dotnet\\prodAPIPrac2\\prodAPIPrac2.csproj": {
+    "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\prodAPIPrac2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\dotnet\\prodAPIPrac2\\prodAPIPrac2.csproj",
+        "projectUniqueName": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\prodAPIPrac2.csproj",
         "projectName": "prodAPIPrac2",
-        "projectPath": "D:\\dotnet\\prodAPIPrac2\\prodAPIPrac2.csproj",
+        "projectPath": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\prodAPIPrac2.csproj",
         "packagesPath": "C:\\Users\\dev-23\\.nuget\\packages\\",
-        "outputPath": "D:\\dotnet\\prodAPIPrac2\\obj\\",
+        "outputPath": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -1,59 +1,98 @@
-# ProductManagement
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
 
-## Development server
+=======
+# 🛒 Product Management System (Full Stack)
 
-To start a local development server, run:
+A full-stack web application built using **Angular 21** and **ASP.NET Core Web API** with JWT Authentication and Role-Based Authorization.
 
-```bash
+---
+
+## 🚀 Features
+
+- 🔐 User Registration & Login (JWT Authentication)
+- 👤 Role-Based Authorization (Admin / User)
+- 📦 Product CRUD (Create, Read, Update, Delete)
+- 🛡️ Secure API with JWT Token
+- 🔄 Angular HTTP Interceptor for token handling
+- 🎯 Protected Routes (Auth Guard)
+- 🎨 Responsive UI using Bootstrap 5
+- 🧾 Reactive Forms with validation
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- Angular 21
+- TypeScript
+- Bootstrap 5
+- RxJS
+
+### Backend
+- ASP.NET Core Web API
+- Entity Framework Core
+- SQL Server
+- JWT Authentication
+- Password Hashing
+
+---
+
+## 📁 Project Structure
+
+
+ProductMS/
+│
+├── frontend/ (Angular App)
+├── backend/ (ASP.NET Core API)
+
+
+---
+
+## 🔐 Authentication Flow
+
+- User registers in system
+- Password is securely hashed in backend
+- User logs in with credentials
+- JWT token is generated
+- Token stored in localStorage
+- Angular interceptor sends token with every request
+
+---
+
+## ⚙️ How to Run
+
+### Backend
+
+cd backend
+dotnet restore
+dotnet run
+
+
+### Frontend
+
+cd frontend
+npm install
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📌 API Endpoints
 
-```bash
-ng generate component component-name
-```
+- POST `/api/auth/register`
+- POST `/api/auth/login`
+- GET `/api/products`
+- POST `/api/products`
+- PUT `/api/products/{id}`
+- DELETE `/api/products/{id}`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 👨‍💻 Author
 
-## Building
+**Taimoor Sakhawat**
 
-To build the project run:
+- GitHub: https://github.com/taumurskhawat-alt
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+>>>>>>> b43c9218c8e4c2915ff23c80bfc9f8088a251539

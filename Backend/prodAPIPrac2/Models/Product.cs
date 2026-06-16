@@ -1,8 +1,11 @@
-﻿namespace prodAPIPrac2.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace prodAPIPrac2.Models
 {
     public class Product
     {
        public int id { get; set; }
+        [RegularExpression(@"^[a-zA-Z ]+$")]
         public  string? name { get; set; }
         public string? category { get; set; }
         public int? price { get; set; }

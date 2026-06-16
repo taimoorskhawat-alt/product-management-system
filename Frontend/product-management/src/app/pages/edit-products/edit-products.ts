@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Product } from '../../services/productservice';
+import { ProductService } from '../../services/productservice';
 
 @Component({
   selector: 'app-edit-products',
@@ -18,7 +18,7 @@ export class EditProducts {
   constructor(
     private fb: FormBuilder,
     private activeRoute: ActivatedRoute,
-    private productservice: Product,
+    private productservice: ProductService,
     private router: Router
   ) {
 
@@ -36,7 +36,7 @@ export class EditProducts {
     if (this.id) {
       this.productservice.editproduct(this.productForm.value, this.id)
         .subscribe(() => {
-          console.log("update success");
+         
           
           this.router.navigate(['/products']);
         });

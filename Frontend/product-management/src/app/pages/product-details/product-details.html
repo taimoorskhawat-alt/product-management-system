@@ -1,0 +1,30 @@
+@if (product()) {
+
+  <div class="container mt-4">
+
+    <div class="card shadow-lg border-0 rounded-4">
+
+      <div class="card-header bg-dark text-white">
+        <h4>{{ product().name }}</h4>
+      </div>
+
+      <div class="card-body">
+
+        <p><b>Category:</b> {{ product().category }}</p>
+        <p><b>Price:</b> {{ product().price }}</p>
+        <p><b>Brand:</b> {{ product().brand }}</p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+} @else {
+
+  <div class="text-center">
+    <div class="spinner-border"></div>
+    <p>Loading...</p>
+  </div>
+
+}

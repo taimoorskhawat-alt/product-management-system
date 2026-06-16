@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Identity;
 using prodAPIPrac2.Models;
+using prodAPIPrac2.services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddCors(options =>
@@ -75,6 +76,7 @@ builder.Services.AddDbContext<appdbcontext>(options
     => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IProduct, Prodrepo>();
 builder.Services.AddScoped<Iprodservice, ProductService>();
+builder.Services.AddScoped<IuserService, UserService>();
 builder.Services.AddControllers();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 

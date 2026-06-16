@@ -85,6 +85,11 @@
 </li>
 
 }
+@if(auth.getRole() == 'Admin') {
+ <a class="nav-link text-white" routerLink="/users">
+  User Management
+</a>
+}
 
 
     

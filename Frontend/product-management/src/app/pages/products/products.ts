@@ -1,20 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { Product } from '../../services/productservice';
+import {  ProductService } from '../../services/productservice';
 import { Prodcts } from '../../services/productinterface';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/authservice';
-
+import { ToastrService } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-products',
-  imports: [CommonModule,RouterLink],
+  imports: [CommonModule,RouterLink,FormsModule],
   templateUrl: './products.html',
   styleUrl: './products.css',
 })
 export class Products {
     productdata = signal<Prodcts[]>([]);
+selectedProductId: number | null = null;
+selectedCategory = '';
 
-  
+searchText:string='';
   newProduct = {
     name: '',
     category: '',
@@ -25,7 +28,7 @@ export class Products {
   };
 
 
-  constructor(private productService:Product,private route:Router,private auth:AuthService) {}
+  constructor(private productService:ProductService,private route:Router,private auth:AuthService,private toastr:ToastrService) {}
   get role() {
   return this.auth.getRole();
 }
@@ -36,20 +39,79 @@ ngOnInit(): void {
 
   loadProducts() {
     this.productService.getproducts().subscribe({
-      next: (data: any[]) => {
-       
-        this.productdata.set(data);
-      }
+       next: (res) => {
+
+    this.productdata.set(res);
+  }
     });
   }
-  deleteproducts(id:number){
-if(confirm("Are You Sure U Want To Delete")){
-  this.productService.deleteproduct(id).subscribe(()=>{
-    this.productdata.update(products=>products.filter(product=>product.id!==id));
-  });
+ deleteproducts(id: number) {
+  this.selectedProductId = id;
+
+  const modal = new (window as any).bootstrap.Modal(
+    document.getElementById('deleteModal')
+  );
+
+  modal.show();
 }
-  }
+confirmDelete() {
+
+  if (this.selectedProductId == null) return;
+
+  this.productService.deleteproduct(this.selectedProductId)
+    .subscribe({
+      next: () => {
+
+        this.productdata.update(products =>
+          products.filter(p => p.id !== this.selectedProductId)
+        );
+
+        this.toastr.success('Product deleted successfully', 'Success');
+
+        const modalEl = document.getElementById('deleteModal');
+        const modal = (window as any).bootstrap.Modal.getInstance(modalEl);
+        modal.hide();
+
+        this.selectedProductId = null;
+      },
+
+      error: (err) => {
+        console.error(err);
+        this.toastr.error('Failed to delete product', 'Error');
+      }
+    });
+}
   editproducts(id:number){
     this.route.navigate(['/edit-product',id]);
   }
+get filteredProducts() {
+
+  return this.productdata().filter(product => {
+
+    const matchesSearch =
+      product.name
+        .toLowerCase()
+        .includes(this.searchText.toLowerCase());
+
+    const matchesCategory =
+      this.selectedCategory === '' ||
+      product.category === this.selectedCategory;
+
+    return matchesSearch && matchesCategory;
+
+  });
+
+}
+get categories(): string[] {
+
+  return [...new Set(
+    this.productdata()
+      .map(product => product.category)
+      .filter(category => category)
+  )];
+
+}
+viewProduct(id: number) {
+  this.route.navigate(['/product-details', id]);
+}
 }

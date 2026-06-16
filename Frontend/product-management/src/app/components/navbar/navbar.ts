@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 export class Navbar {
     constructor(
-    private auth: AuthService,
+    public auth: AuthService,
     private router: Router
   ) {}
   isLoggedIn() {

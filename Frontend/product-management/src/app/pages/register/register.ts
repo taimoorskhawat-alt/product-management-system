@@ -3,7 +3,7 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { AuthService } from '../../services/authservice';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   imports: [CommonModule,ReactiveFormsModule,RouterLink,FormsModule],
@@ -13,11 +13,12 @@ import { CommonModule } from '@angular/common';
 })
 export class Register {
     form;
-
+isLoading = false;
   constructor(
     private fb: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private toastr:ToastrService
   ) {
 
     this.form = this.fb.group({
@@ -26,26 +27,25 @@ export class Register {
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-  ngOnInit() {
-  console.log("REGISTER COMPONENT LOADED");
-}
+ 
 
  register() {
 
-  console.log("REGISTER CALLED");
+
 
   this.auth.register(this.form.value as any)
     .subscribe({
 
       next: (res) => {
-        console.log("SUCCESS RESPONSE:", res);
-        alert('Registration Successful');
+        this.isLoading = true;
+    this.toastr.success('Registration Successfull','Success')
         this.router.navigate(['/login']);
       },
 
       error: (err) => {
+        this.isLoading = false;
         console.log("ERROR RESPONSE:", err);
-        alert("Registration failed");
+        this.toastr.error('Registraion Failed','error')
       }
 
     });
