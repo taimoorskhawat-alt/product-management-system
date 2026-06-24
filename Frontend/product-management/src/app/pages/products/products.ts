@@ -16,6 +16,8 @@ export class Products {
     productdata = signal<Prodcts[]>([]);
 selectedProductId: number | null = null;
 selectedCategory = '';
+currentPage = 1;
+pageSize = 5;
 
 searchText:string='';
   newProduct = {
@@ -102,6 +104,22 @@ get filteredProducts() {
   });
 
 }
+get paginatedProducts() {
+
+  const startIndex = (this.currentPage - 1) * this.pageSize;
+
+  const endIndex = startIndex + this.pageSize;
+
+  return this.filteredProducts.slice(startIndex, endIndex);
+
+}
+get totalPages() {
+
+  return Math.ceil(
+    this.filteredProducts.length / this.pageSize
+  );
+
+}
 get categories(): string[] {
 
   return [...new Set(
@@ -109,6 +127,25 @@ get categories(): string[] {
       .map(product => product.category)
       .filter(category => category)
   )];
+
+}
+nextPage() {
+
+  if (this.currentPage < this.totalPages) {
+
+    this.currentPage++;
+
+  }
+
+}
+
+previousPage() {
+
+  if (this.currentPage > 1) {
+
+    this.currentPage--;
+
+  }
 
 }
 viewProduct(id: number) {

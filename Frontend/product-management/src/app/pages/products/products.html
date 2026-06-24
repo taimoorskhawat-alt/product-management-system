@@ -16,18 +16,19 @@
 <div class="row mb-3">
 
   <div class="col-md-6">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Search products..."
-      [(ngModel)]="searchText">
+   <input
+  type="text"
+  class="form-control"
+  placeholder="Search products..."
+  [(ngModel)]="searchText"
+  (ngModelChange)="currentPage = 1">
   </div>
 
   <div class="col-md-6">
-    <select
-      class="form-select"
-      [(ngModel)]="selectedCategory">
-
+   <select
+  class="form-select"
+  [(ngModel)]="selectedCategory"
+  (ngModelChange)="currentPage = 1">
       <option value="">
         All Categories
       </option>
@@ -69,9 +70,8 @@
 
       <tbody>
 
-       @for(product of filteredProducts; track product.id) {
-          <tr>
-<tr (click)="viewProduct(product.id)" style="cursor:pointer">
+       @for(product of paginatedProducts; track product.id) {
+         <tr (click)="viewProduct(product.id)" style="cursor:pointer">
             <td>{{ product.id }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.price }}</td>
@@ -83,13 +83,16 @@
 
             <td>
 @if (role==='Admin') {
-              <button class="btn btn-sm btn-warning me-2" (click)="editproducts(product.id)">
-                Edit
-              </button>
-                <button class="btn btn-sm btn-danger"
-            (click)="deleteproducts(product.id)">
-      Delete
-    </button>
+<button
+  class="btn btn-sm btn-warning me-2"
+  (click)="$event.stopPropagation(); editproducts(product.id)">
+  Edit
+</button>
+              <button
+  class="btn btn-sm btn-danger"
+  (click)="$event.stopPropagation(); deleteproducts(product.id)">
+  Delete
+</button>
                 }
 
             </td>
@@ -130,5 +133,32 @@
     </table>
 
   </div>
+
+</div>
+<div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+
+  <button
+    class="btn btn-outline-primary"
+    (click)="previousPage()"
+    [disabled]="currentPage === 1">
+
+    Previous
+
+  </button>
+
+  <span class="fw-bold">
+
+    Page {{ currentPage }} of {{ totalPages }}
+
+  </span>
+
+  <button
+    class="btn btn-outline-primary"
+    (click)="nextPage()"
+    [disabled]="currentPage === totalPages">
+
+    Next
+
+  </button>
 
 </div>

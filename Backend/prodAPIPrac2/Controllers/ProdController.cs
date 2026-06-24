@@ -46,7 +46,7 @@ namespace prodAPIPrac2.Controllers
             var newpro = await _serv.Addpro(pro);
             return Ok(newpro);
         }
-        [Authorize(Roles = "Admin0")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Product>>updatepro(int id,Product updatepro)
         {

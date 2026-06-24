@@ -48,7 +48,7 @@ selectedRole: any = null;
 loadRoles() {
   this.roleservice.getRoles().subscribe(res => {
     
-    this.roles = res;
+       this.roles = [...res];
   });
 }
 addRole() {
