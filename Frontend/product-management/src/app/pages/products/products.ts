@@ -5,7 +5,7 @@ import { Prodcts } from '../../services/productinterface';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/authservice';
 import { ToastrService } from 'ngx-toastr';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, TouchedChangeEvent } from '@angular/forms';
 @Component({
   selector: 'app-products',
   imports: [CommonModule,RouterLink,FormsModule],
@@ -16,9 +16,11 @@ export class Products {
     productdata = signal<Prodcts[]>([]);
 selectedProductId: number | null = null;
 selectedCategory = '';
-currentPage = 1;
-pageSize = 5;
-
+currentPage:number = 1;
+pageSize:number=5;
+totalCount: number = 0;
+sortColumn = '';
+sortAscending = true;
 searchText:string='';
   newProduct = {
     name: '',
@@ -40,10 +42,19 @@ ngOnInit(): void {
  
 
   loadProducts() {
-    this.productService.getproducts().subscribe({
-       next: (res) => {
+      
+    this.productService.getproducts(this.currentPage,
+      this.pageSize,
+      this.sortColumn,
+      this.sortAscending,
+      this.searchText,
+      this.selectedCategory).subscribe({
+       next: (res:any) => {
 
-    this.productdata.set(res);
+    this.productdata.set(res.products);
+        this.totalCount = res.totalCount;
+      
+
   }
     });
   }
@@ -86,37 +97,79 @@ confirmDelete() {
   editproducts(id:number){
     this.route.navigate(['/edit-product',id]);
   }
-get filteredProducts() {
+// get filteredProducts() {
 
-  return this.productdata().filter(product => {
+//   return this.productdata().filter(product => {
 
-    const matchesSearch =
-      product.name
-        .toLowerCase()
-        .includes(this.searchText.toLowerCase());
+//     const matchesSearch =
+//       product.name
+//         .toLowerCase()
+//         .includes(this.searchText.toLowerCase());
 
-    const matchesCategory =
-      this.selectedCategory === '' ||
-      product.category === this.selectedCategory;
+//     const matchesCategory =
+//       this.selectedCategory === '' ||
+//       product.category === this.selectedCategory;
 
-    return matchesSearch && matchesCategory;
+//     return matchesSearch && matchesCategory;
 
-  });
+//   });
 
+// }
+ sort(column: string){
+   
+
+    if (this.sortColumn === column) {
+    this.sortAscending = !this.sortAscending;
+  } else {
+    this.sortColumn = column;
+    this.sortAscending = true;
+  }
+
+  this.currentPage = 1;
+  this.loadProducts();
 }
-get paginatedProducts() {
+// get sortedProducts() {
 
-  const startIndex = (this.currentPage - 1) * this.pageSize;
+//   const products = [...this.filteredProducts];
 
-  const endIndex = startIndex + this.pageSize;
+//   products.sort((a, b) => {
 
-  return this.filteredProducts.slice(startIndex, endIndex);
+//     if (this.sortColumn === 'price') {
 
-}
+//       return this.sortAscending
+//         ? a.price - b.price
+//         : b.price - a.price;
+
+//     }
+
+//     if (this.sortColumn === 'quantity') {
+
+//       return this.sortAscending
+//         ? a.quantity - b.quantity
+//         : b.quantity - a.quantity;
+
+//     }
+
+//     if (this.sortColumn === 'name') {
+
+//       return this.sortAscending
+//         ? a.name.localeCompare(b.name)
+//         : b.name.localeCompare(a.name);
+
+//     }
+
+//     return 0;
+
+//   });
+
+//   return products;
+
+//  }
+
 get totalPages() {
 
   return Math.ceil(
-    this.filteredProducts.length / this.pageSize
+    this.totalCount/ this.pageSize
   );
 
 }
@@ -131,9 +184,9 @@ get categories(): string[] {
 }
 nextPage() {
 
-  if (this.currentPage < this.totalPages) {
-
+  if (this.currentPage*this.pageSize < this.totalCount) {
     this.currentPage++;
+    this.loadProducts();
 
   }
 
@@ -144,11 +197,34 @@ previousPage() {
   if (this.currentPage > 1) {
 
     this.currentPage--;
+    this.loadProducts();
 
   }
 
 }
+goToPage(page: number) {
+  this.currentPage = page;
+  this.loadProducts();
+}
+onPageSizeChange() {
+  this.currentPage = 1;
+  this.loadProducts();
+}
+onSearchChange() {
+  this.currentPage = 1;
+  this.loadProducts();
+}
+onCategoryChange() {
+  this.currentPage = 1;
+  this.loadProducts();
+}
 viewProduct(id: number) {
   this.route.navigate(['/product-details', id]);
+}
+get pages(): number[] {
+  return Array.from(
+    { length: this.totalPages },
+    (_, i) => i + 1
+  );
 }
 }

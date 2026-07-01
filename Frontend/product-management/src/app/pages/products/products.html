@@ -3,10 +3,8 @@
   <h2>
     Product List
   </h2>
-@if (role==='Admin') {
-  <a
-    routerLink="/add-product"
-    class="btn btn-dark">
+  @if (role==='Admin') {
+  <a routerLink="/add-product" class="btn btn-dark">
 
     Add Product
 
@@ -16,28 +14,21 @@
 <div class="row mb-3">
 
   <div class="col-md-6">
-   <input
-  type="text"
-  class="form-control"
-  placeholder="Search products..."
-  [(ngModel)]="searchText"
-  (ngModelChange)="currentPage = 1">
+    <input type="text" class="form-control" placeholder="Search products..." [(ngModel)]="searchText"
+      (input)="onSearchChange()">
   </div>
 
   <div class="col-md-6">
-   <select
-  class="form-select"
-  [(ngModel)]="selectedCategory"
-  (ngModelChange)="currentPage = 1">
+    <select class="form-select" [(ngModel)]="selectedCategory" (ngModelChange)="onCategoryChange()">
       <option value="">
         All Categories
       </option>
 
       @for(category of categories; track category) {
 
-        <option [value]="category">
-          {{ category }}
-        </option>
+      <option [value]="category">
+        {{ category }}
+      </option>
 
       }
 
@@ -56,11 +47,68 @@
         <tr>
 
           <th>ID</th>
-          <th>Name</th>
-          <th>Price</th>
+          <th class="sortable" (click)="sort('name')">
+
+    Name
+
+    @if(sortColumn === 'name'){
+
+        <span>
+            {{ sortAscending ? '↑' : '↓' }}
+        </span>
+
+    }
+    @else{
+
+        <span class="text-muted">
+            ↕
+        </span>
+
+    }
+
+</th>
+          <th class="sortable" (click)="sort('price')">
+
+    Price
+
+    @if(sortColumn === 'price'){
+
+        <span>
+            {{ sortAscending ? '↑' : '↓' }}
+        </span>
+
+    }
+    @else{
+
+        <span class="text-muted">
+            ↕
+        </span>
+
+    }
+
+</th> 
           <th>Category</th>
           <th>Brand</th>
-          <th>Quantity</th>
+          <th class="sortable" (click)="sort('quantity')">
+
+    Quantity
+
+    @if(sortColumn === 'quantity'){
+
+        <span>
+            {{ sortAscending ? '↑' : '↓' }}
+        </span>
+
+    }
+    @else{
+
+        <span class="text-muted">
+            ↕
+        </span>
+
+    }
+
+</th> 
           <th>ItemCode</th>
           <th>Actions</th>
 
@@ -70,61 +118,57 @@
 
       <tbody>
 
-       @for(product of paginatedProducts; track product.id) {
-         <tr (click)="viewProduct(product.id)" style="cursor:pointer">
-            <td>{{ product.id }}</td>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
-            <td>{{ product.category }}</td>
-            <td>{{ product.brand}}</td>
-            <td>{{ product.quantity }}</td>
-            <td>{{ product.itemCode }}</td>
-            
+        @for(product of productdata(); track product.id) {
+        <tr (click)="viewProduct(product.id)" style="cursor:pointer">
+          <td>{{ product.id }}</td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.category }}</td>
+          <td>{{ product.brand}}</td>
+          <td>{{ product.quantity }}</td>
+          <td>{{ product.itemCode }}</td>
 
-            <td>
-@if (role==='Admin') {
-<button
-  class="btn btn-sm btn-warning me-2"
-  (click)="$event.stopPropagation(); editproducts(product.id)">
-  Edit
-</button>
-              <button
-  class="btn btn-sm btn-danger"
-  (click)="$event.stopPropagation(); deleteproducts(product.id)">
-  Delete
-</button>
-                }
 
-            </td>
+          <td>
+            @if (role==='Admin') {
+            <button class="btn btn-sm btn-warning me-2" (click)="$event.stopPropagation(); editproducts(product.id)">
+              Edit
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="$event.stopPropagation(); deleteproducts(product.id)">
+              Delete
+            </button>
+            }
 
-<div class="modal fade" id="deleteModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
+          </td>
 
-      <div class="modal-header">
-        <h5 class="modal-title">Delete Product</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
+          <div class="modal fade" id="deleteModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
 
-      <div class="modal-body">
-        Are you sure you want to delete this product?
-      </div>
+                <div class="modal-header">
+                  <h5 class="modal-title">Delete Product</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
 
-      <div class="modal-footer">
-        <button class="btn btn-secondary" data-bs-dismiss="modal">
-          Cancel
-        </button>
+                <div class="modal-body">
+                  Are you sure you want to delete this product?
+                </div>
 
-        <button class="btn btn-danger" (click)="confirmDelete()">
-          Delete
-        </button>
-      </div>
+                <div class="modal-footer">
+                  <button class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancel
+                  </button>
 
-    </div>
-  </div>
-</div>
+                  <button class="btn btn-danger" (click)="confirmDelete()">
+                    Delete
+                  </button>
+                </div>
 
-          </tr>
+              </div>
+            </div>
+          </div>
+
+        </tr>
 
         }
 
@@ -135,30 +179,85 @@
   </div>
 
 </div>
-<div class="d-flex justify-content-center align-items-center gap-3 mt-4">
 
-  <button
-    class="btn btn-outline-primary"
-    (click)="previousPage()"
-    [disabled]="currentPage === 1">
+<div class="d-flex justify-content-center align-items-center gap-4 mt-4 flex-wrap">
 
-    Previous
+  <!-- Show Entries -->
+ 
 
-  </button>
+  <!-- Pagination -->
+  <nav>
 
-  <span class="fw-bold">
+    <ul class="pagination mb-0">
 
-    Page {{ currentPage }} of {{ totalPages }}
+      <li
+        class="page-item"
+        [class.disabled]="currentPage === 1">
 
-  </span>
+        <button
+          class="page-link"
+          (click)="previousPage()">
 
-  <button
-    class="btn btn-outline-primary"
-    (click)="nextPage()"
-    [disabled]="currentPage === totalPages">
+           ←
 
-    Next
+        </button>
 
-  </button>
+      </li>
+
+      @for(page of pages; track page){
+
+      <li
+        class="page-item"
+        [class.active]="currentPage === page">
+
+        <button
+          class="page-link"
+          (click)="goToPage(page)">
+
+          {{ page }}
+
+        </button>
+
+      </li>
+
+      }
+
+      <li
+        class="page-item"
+        [class.disabled]="currentPage === totalPages">
+
+        <button
+          class="page-link"
+          (click)="nextPage()">
+
+          →
+
+        </button>
+
+      </li>
+
+    </ul>
+
+  </nav>
+   <div class="d-flex align-items-center gap-2">
+
+    <label class="mb-0 fw-semibold">Show</label>
+
+    <select
+      class="form-select form-select-sm w-auto"
+      [(ngModel)]="pageSize"
+      (change)="onPageSizeChange()">
+
+      <option [value]="5">5</option>
+      <option [value]="10">10</option>
+      <option [value]="20">20</option>
+      <option [value]="50">50</option>
+      <option [value]="100">100</option>
+
+    </select>
+
+    <span>entries</span>
+
+  </div>
 
 </div>

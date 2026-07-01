@@ -4,7 +4,7 @@ namespace prodAPIPrac2.repositary
 {
     public interface IProduct
     {
-        Task<IEnumerable<Product>> getpro();
+        Task<ProdPaginationDTO> getpro(int page, int pageSize, string sortColumn, bool sortAscending, string search, string category);
         Task<Product?> getprobyid(int id);
         Task<Product> Addpro(Product pro);
         Task<Product> updatepro(int id, Product updatepro);

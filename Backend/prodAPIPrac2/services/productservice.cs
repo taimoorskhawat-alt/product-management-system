@@ -13,9 +13,9 @@ namespace prodAPIPrac2.Services
             _repo = repo;
         }
 
-        public async Task<IEnumerable<Product>> getpro()
+        public async Task<ProdPaginationDTO> getpro(int page, int pageSize, string sortColumn, bool sortAscending, string search, string category)
         {
-            return await _repo.getpro();
+            return await _repo.getpro(page, pageSize,sortColumn,sortAscending,search,category);
         }
 
         public async Task<Product?> getprobyid(int id)

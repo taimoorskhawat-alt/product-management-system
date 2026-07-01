@@ -1,3 +1,4 @@
+<h3>Users Length: {{ users?.length }}</h3>
 <div class="container mt-4">
 
   <div class="card shadow border-0">
@@ -150,7 +151,7 @@
 
           <tbody>
 
-            @for(user of users; track user.id; let i = $index) {
+           @for(user of users ?? []; track $index; let i = $index) {
 
             <tr>
 

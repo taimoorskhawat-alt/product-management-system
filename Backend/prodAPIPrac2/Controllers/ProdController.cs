@@ -22,11 +22,13 @@ namespace prodAPIPrac2.Controllers
         }
         [Authorize(Roles = "Admin,User")]
         [HttpGet]
-        public async Task<ActionResult <IEnumerable<Product>>>getpro()
+        public async Task<ActionResult<ProdPaginationDTO>> getpro( 
+            int page = 1, int pageSize = 10, string sortColumn = "",  bool sortAscending = true, string search = "", string category = "")
         {
-            var pro = await _serv.getpro();
-            return Ok(pro);
            
+            var pro = await _serv.getpro(page, pageSize,sortColumn, sortAscending, search,category);
+            
+            return Ok(pro);
         }
         [Authorize(Roles = "Admin,User")]
         [HttpGet("{id}")]

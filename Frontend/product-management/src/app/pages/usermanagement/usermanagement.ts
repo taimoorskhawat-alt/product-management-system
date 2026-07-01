@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Userservice } from '../../services/userservice';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,28 +19,35 @@ export class Usermanagement implements OnInit{
  editMode: boolean = false;
 selectedRole: any = null;
 
-  constructor(private userService: Userservice,private router:Router,private roleservice:Roleservice, private toastr:ToastrService) {
-   
+  constructor(private userService: Userservice,private router:Router,private roleservice:Roleservice, private toastr:ToastrService, private cdr: ChangeDetectorRef) {
+     
   }
 
-  ngOnInit() {
-    this.loadUsers();
-    this.loadRoles();
-  }
+ ngOnInit(): void {
+   this.loadUsers();
+   this.loadRoles();
+ }
 
-  loadUsers() {
-    this.userService.getAllUsers().subscribe({
-      next: (res: any) => {
-        
-        this.users = res;
-      }
-    });
-  }
+loadUsers() {
+  this.userService.getAllUsers().subscribe({
+    next: (res: any) => {
+
+      this.users = res;
+
+      this.cdr.detectChanges(); // 🔥 FORCE UI UPDATE
+
+    },
+    error: (err) => {
+      console.error(err);
+      this.users = [];
+    }
+  });
+}
   updateRole(user: any) {
   this.userService.updateRole(user.id, user.role)
     .subscribe({
       next: () => {
-        alert("Role updated successfully");
+        this.toastr.success("Role updated successfully");
         this.loadUsers();
       }
     });
@@ -48,7 +55,8 @@ selectedRole: any = null;
 loadRoles() {
   this.roleservice.getRoles().subscribe(res => {
     
-       this.roles = [...res];
+       this.roles = res;
+         this.cdr.detectChanges();
   });
 }
 addRole() {

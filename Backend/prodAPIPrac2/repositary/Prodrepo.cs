@@ -11,9 +11,51 @@ namespace prodAPIPrac2.repositary
         {
             _context = context;
         }
-        public async Task<IEnumerable<Product>> getpro()
+        public async Task<ProdPaginationDTO> getpro(int page, int pageSize, string sortColumn, bool sortAscending, string search, string category)
         {
-            return await _context.products.ToListAsync();
+            var query = _context.products.AsQueryable();
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(x =>
+                    x.name.Contains(search) 
+                    
+                    
+                  );
+            }
+            if (!string.IsNullOrEmpty(category))
+            {
+                query = query.Where(x =>
+       x.category.ToLower() == category.ToLower());
+            }
+            // SORTING
+            if (!string.IsNullOrEmpty(sortColumn))
+            {
+                if (sortColumn == "name")
+                    query = sortAscending ? query.OrderBy(x => x.name)
+                                          : query.OrderByDescending(x => x.name);
+
+                if (sortColumn == "price")
+                    query = sortAscending ? query.OrderBy(x => x.price)
+                                          : query.OrderByDescending(x => x.price);
+
+                if (sortColumn == "quantity")
+                    query = sortAscending ? query.OrderBy(x => x.quantity)
+                                          : query.OrderByDescending(x => x.quantity);
+            }
+
+            // PAGINATION
+            var totalCount = await query.CountAsync();
+
+            var products = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new ProdPaginationDTO
+            {
+                Products = products,
+                TotalCount = totalCount
+            };
         }
         public async Task<Product?> getprobyid(int id)
         {
