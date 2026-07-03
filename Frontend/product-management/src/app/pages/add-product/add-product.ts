@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './add-product.css',
 })
 export class AddProduct {
+  selectedFile: File | null = null;
      product: Prodcts = {
     id: 0,
     name: '',
@@ -21,7 +22,8 @@ export class AddProduct {
     brand:'',
     itemCode:'',
     quantity:0,
-    description:''
+    description:'',
+    
   };
 
   constructor(private productService:ProductService, private router:Router,private toastr:ToastrService) {}
@@ -58,7 +60,7 @@ export class AddProduct {
       description:this.productForm.value.description!,
     };
 
-    this.productService.addProduct(product).subscribe({
+    this.productService.addProduct(product,this.selectedFile).subscribe({
       next: () => {
       
         this.toastr.success('Product Added Successfully','Success')
@@ -72,4 +74,15 @@ export class AddProduct {
       }
     });
   }
+  onFileSelected(event: Event) {
+
+  const input = event.target as HTMLInputElement;
+
+  if (input.files && input.files.length > 0) {
+
+    this.selectedFile = input.files[0];
+
+  }
+
+}
 }

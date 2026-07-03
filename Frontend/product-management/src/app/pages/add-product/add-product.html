@@ -5,7 +5,7 @@
 
       <div class="card shadow-sm">
 
-        
+
         <div class="card-header bg-primary text-white">
           Add Product
         </div>
@@ -64,7 +64,17 @@
               <label class="form-label">Description</label>
               <textarea rows="4" class="form-control" formControlName="description"></textarea>
             </div>
+            <div class="mb-4">
 
+              <label class="form-label">
+
+                Product Image
+
+              </label>
+
+              <input type="file" class="form-control" accept="image/*" (change)="onFileSelected($event)">
+
+            </div>
             <button class="btn btn-dark w-100" type="submit">
               Save Product
             </button>

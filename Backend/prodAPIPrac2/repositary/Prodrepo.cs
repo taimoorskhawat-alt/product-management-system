@@ -62,13 +62,47 @@ namespace prodAPIPrac2.repositary
             return await _context.products.FindAsync(id);
 
         }
-        public async Task<Product> Addpro(Product pro)
+        public async Task<Product> Addpro(ProductDTO pro)
         {
-            _context.products.Add(pro);
+            string imagePath = null;
+
+            if (pro.Image != null)
+            {
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(pro.Image.FileName);
+
+                var folderPath = Path.Combine("wwwroot", "uploads");
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var fullPath = Path.Combine(folderPath, fileName);
+
+                using (var stream = new FileStream(fullPath, FileMode.Create))
+                {
+                    await pro.Image.CopyToAsync(stream);
+                }
+
+                imagePath = "uploads/" + fileName;
+            }
+
+            var prod = new Product
+            {
+                name = pro.name,
+                price = pro.price,
+                category = pro.category,
+                quantity = pro.quantity,
+                itemCode = pro.itemCode,
+                brand=pro.brand,
+                description = pro.description,
+                ImageUrl = imagePath
+            };
+            _context.products.Add(prod);
             await _context.SaveChangesAsync();
-            return pro;
+            return prod;
         }
-        public async Task<Product?> updatepro(int id, Product updatepro)
+        public async Task<Product> updatepro(int id, ProductDTO updatepro)
         {
             var pro = await _context.products.FindAsync(id);
             if (pro == null)
@@ -82,7 +116,27 @@ namespace prodAPIPrac2.repositary
             pro.brand = updatepro.brand;
             pro.category = updatepro.category;
             pro.description = updatepro.description;
+            if (updatepro.Image != null)
+            {
+                if (!string.IsNullOrEmpty(pro.ImageUrl))
+                {
+                    var oldPath = Path.Combine("wwwroot", pro.ImageUrl);
 
+                    if (File.Exists(oldPath))
+                    {
+                        File.Delete(oldPath);
+                    }
+                }
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(updatepro.Image.FileName);
+                var path = Path.Combine("wwwroot/uploads", fileName);
+
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await updatepro.Image.CopyToAsync(stream);
+                }
+
+                pro.ImageUrl = "uploads/" + fileName;
+            }
             await _context.SaveChangesAsync();
             return pro;
         }

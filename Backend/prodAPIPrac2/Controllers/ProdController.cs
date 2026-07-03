@@ -43,14 +43,14 @@ namespace prodAPIPrac2.Controllers
         }
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public async Task<ActionResult<Product>> Addpro(Product pro)
+        public async Task<ActionResult<Product>> Addpro([FromForm]ProductDTO pro)
         {
             var newpro = await _serv.Addpro(pro);
             return Ok(newpro);
         }
         [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
-        public async Task<ActionResult<Product>>updatepro(int id,Product updatepro)
+        public async Task<ActionResult<Product>>updatepro(int id, [FromForm] ProductDTO updatepro)
         {
             var pro = await _serv.updatepro(id,updatepro);
             if (pro == null)

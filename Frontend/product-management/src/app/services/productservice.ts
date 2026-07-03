@@ -16,17 +16,32 @@ export class ProductService {
     return this.http.get<any>(`${this.apiurl}?page=${page}&pageSize=${pageSize}&sortColumn=${sortColumn}&sortAscending=${sortAscending}&search=${search}&category=${category}`);
   }
 
-  addProduct(product: Prodcts) {
-    return this.http.post<Prodcts>(this.apiurl, product);
+  addProduct(product: Prodcts,imageFile: File | null) {
+      const formData = new FormData();
+
+  formData.append('name', product.name);
+  formData.append('price', product.price.toString());
+  formData.append('category', product.category);
+  formData.append('brand', product.brand);
+  formData.append('itemCode', product.itemCode);
+  formData.append('quantity', product.quantity.toString());
+  formData.append('description', product.description ?? '');
+
+  if (imageFile) {
+
+    formData.append('image', imageFile);
+
+  }
+     return this.http.post(this.apiurl, formData);
   }
 
   deleteproduct(id: number) {
     return this.http.delete(`${this.apiurl}/${id}`);
   }
 
-  editproduct(data: any, id: string) {
-    return this.http.put(`${this.apiurl}/${id}`, data);
-  }
+ editproduct(data: FormData, id: string) {
+  return this.http.put(`${this.apiurl}/${id}`, data);
+}
 
   getbyid(id: string) {
     return this.http.get<Prodcts>(`${this.apiurl}/${id}`);

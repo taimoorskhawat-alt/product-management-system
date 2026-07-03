@@ -13,6 +13,7 @@ namespace prodAPIPrac2.Models
         public int? quantity { get; set; }
         public string? brand { get; set; }
         public string? description { get; set; }
+        public string? ImageUrl { get; set; }
 
     }
 }

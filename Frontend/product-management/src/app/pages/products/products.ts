@@ -13,6 +13,7 @@ import { FormsModule, TouchedChangeEvent } from '@angular/forms';
   styleUrl: './products.css',
 })
 export class Products {
+  imageBaseUrl = 'https://localhost:7070/';
     productdata = signal<Prodcts[]>([]);
 selectedProductId: number | null = null;
 selectedCategory = '';

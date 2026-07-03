@@ -78,7 +78,34 @@
               <label class="form-label">Description</label>
               <textarea rows="4" class="form-control" formControlName="description"></textarea>
             </div>
+<div class="mb-3">
 
+  <label class="form-label">Product Image</label>
+
+  <!-- CURRENT IMAGE -->
+ @if (productForm.value.imageUrl) {
+
+  <div class="mb-2">
+
+    <img
+      [src]="imageBaseUrl + productForm.value.imageUrl"
+      width="100"
+      height="100"
+      class="rounded"
+      style="object-fit: cover;">
+
+  </div>
+
+}
+
+  <!-- NEW IMAGE -->
+  <input
+    type="file"
+    class="form-control"
+    accept="image/*"
+    (change)="onFileSelected($event)">
+
+</div>
             <!-- Button -->
             <button type="submit" class="btn btn-warning w-100" >
               Update Product

@@ -47,6 +47,7 @@
         <tr>
 
           <th>ID</th>
+           <th>IMG</th>
           <th class="sortable" (click)="sort('name')">
 
     Name
@@ -121,6 +122,14 @@
         @for(product of productdata(); track product.id) {
         <tr (click)="viewProduct(product.id)" style="cursor:pointer">
           <td>{{ product.id }}</td>
+           <td>
+    <img
+      [src]="product.imageUrl ? imageBaseUrl + product.imageUrl : 'assets/no-image.png'"
+      width="60"
+      height="60"
+      class="rounded"
+      style="object-fit: cover;">
+  </td>
           <td>{{ product.name }}</td>
           <td>{{ product.price }}</td>
           <td>{{ product.category }}</td>

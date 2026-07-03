@@ -23,12 +23,12 @@ namespace prodAPIPrac2.Services
             return await _repo.getprobyid(id);
         }
 
-        public async Task<Product> Addpro(Product pro)
+        public async Task<Product> Addpro(ProductDTO pro)
         {
             return await _repo.Addpro(pro);
         }
 
-        public async Task<Product?> updatepro(int id, Product updatepro)
+        public async Task<Product?> updatepro(int id, ProductDTO updatepro)
         {
             return await _repo.updatepro(id, updatepro);
         }

@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './product-details.css',
 })
 export class ProductDetails implements OnInit {
-  
+  imageBaseUrl = 'https://localhost:7070/';
  product = signal<any>(null);
 
   constructor(

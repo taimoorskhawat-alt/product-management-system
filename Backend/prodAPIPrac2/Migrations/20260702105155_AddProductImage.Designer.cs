@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using prodAPIPrac2.data;
 
@@ -11,9 +12,11 @@ using prodAPIPrac2.data;
 namespace prodAPIPrac2.Migrations
 {
     [DbContext(typeof(appdbcontext))]
-    partial class appdbcontextModelSnapshot : ModelSnapshot
+    [Migration("20260702105155_AddProductImage")]
+    partial class AddProductImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

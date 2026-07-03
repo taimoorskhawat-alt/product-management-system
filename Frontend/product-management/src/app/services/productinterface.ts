@@ -7,4 +7,5 @@ export interface Prodcts {
   brand:string;
   quantity:number;
   description:string;
+   imageUrl?: string;
 }
