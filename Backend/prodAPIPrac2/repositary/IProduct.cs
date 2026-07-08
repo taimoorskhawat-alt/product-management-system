@@ -9,5 +9,6 @@ namespace prodAPIPrac2.repositary
         Task<Product> Addpro(ProductDTO pro);
         Task<Product> updatepro(int id, ProductDTO updatepro);
         Task<bool> deletepro(int id);
+        Task<DashboardDTO> GetDashboardData();
     }
 }

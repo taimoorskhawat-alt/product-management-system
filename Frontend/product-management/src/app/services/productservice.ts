@@ -46,4 +46,9 @@ export class ProductService {
   getbyid(id: string) {
     return this.http.get<Prodcts>(`${this.apiurl}/${id}`);
   }
+  getDashboard() {
+  return this.http.get<any>(
+    `${this.apiurl.replace('/prod','')}/Dashboard`
+  );
+}
 }

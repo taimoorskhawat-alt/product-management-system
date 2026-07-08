@@ -1,0 +1,197 @@
+<div class="container mt-4">
+
+  @if(dashboardData()) {
+
+  <div class="row g-4">
+
+    <!-- Total Products -->
+    <div class="col-md-3">
+
+      <div class="card shadow border-0 bg-primary text-white h-100">
+
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+              <h6 class="mb-1">
+                Total Products
+              </h6>
+
+              <h2 class="mb-0">
+                {{ dashboardData().totalProducts }}
+              </h2>
+
+            </div>
+
+            <i class="bi bi-box-seam display-5"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Inventory Value -->
+    <div class="col-md-3">
+
+      <div class="card shadow border-0 bg-success text-white h-100">
+
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+              <h6 class="mb-1">
+                Inventory Value
+              </h6>
+
+              <h2 class="mb-0">
+                {{ dashboardData().totalInventoryValue | number }}
+              </h2>
+
+            </div>
+
+            <i class="bi bi-currency-dollar display-5"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Low Stock -->
+    <div class="col-md-3">
+
+      <div class="card shadow border-0 bg-danger text-white h-100">
+
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+              <h6 class="mb-1">
+                Low Stock
+              </h6>
+
+              <h2 class="mb-0">
+                {{ dashboardData().lowStockProducts }}
+              </h2>
+
+            </div>
+
+            <i class="bi bi-exclamation-triangle display-5"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Categories -->
+    <div class="col-md-3">
+
+      <div class="card shadow border-0 bg-warning text-dark h-100">
+
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+
+              <h6 class="mb-1">
+                Categories
+              </h6>
+
+              <h2 class="mb-0">
+                {{ dashboardData().totalCategories }}
+              </h2>
+
+            </div>
+
+            <i class="bi bi-grid display-5"></i>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Products By Category -->
+
+  <div class="card shadow-sm mt-5">
+
+    <div class="card-header">
+
+      <h5 class="mb-0">
+        Products By Category
+      </h5>
+
+    </div>
+
+    <div class="card-body">
+
+      @for(category of dashboardData().productsByCategory; track category.category){
+
+      <div class="mb-3">
+
+        <div class="d-flex justify-content-between mb-1">
+
+          <strong>
+            {{ category.category }}
+          </strong>
+
+          <span>
+            {{ category.count }}
+          </span>
+
+        </div>
+
+        <div class="progress" style="height:22px">
+
+          <div class="progress-bar" role="progressbar" [class]="getProgressColor(category.category)"
+            [style.width.%]="(category.count/dashboardData().totalProducts)*100">
+
+            {{ category.count }}
+
+          </div>
+        </div>
+
+      </div>
+
+      }
+
+    </div>
+
+  </div>
+
+  }
+
+  @else {
+
+  <div class="text-center mt-5">
+
+    <div class="spinner-border"></div>
+
+    <p class="mt-3">
+      Loading Dashboard...
+    </p>
+
+  </div>
+
+  }
+
+</div>

@@ -37,5 +37,9 @@ namespace prodAPIPrac2.Services
         {
             return await _repo.deletepro(id);
         }
+        public async Task<DashboardDTO> GetDashboardData()
+        {
+            return await _repo.GetDashboardData();
+        }
     }
 }

@@ -13,6 +13,7 @@ import { Register } from './pages/register/register';
 import { ProductDetails } from './pages/product-details/product-details';
 import { Usermanagement } from './pages/usermanagement/usermanagement';
 import { adminGuard } from '../admin-guars';
+import { Dashboard } from './components/dashboard/dashboard';
 
 export const routes: Routes = [
     { path: '', redirectTo:'login', pathMatch:'full' },
@@ -25,6 +26,7 @@ export const routes: Routes = [
     { path: 'contact', component: Contact },
     {path:'register',component:Register},
     {path: 'product-details/:id',component: ProductDetails},
-    {path:'users',component:Usermanagement,canActivate:[adminGuard]}
+    {path:'users',component:Usermanagement,canActivate:[adminGuard]},
+    {path:'dashboard',component:Dashboard,canActivate:[adminGuard]}
 
 ]

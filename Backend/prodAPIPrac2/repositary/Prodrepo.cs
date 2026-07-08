@@ -151,5 +151,39 @@ namespace prodAPIPrac2.repositary
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<DashboardDTO> GetDashboardData()
+        {
+            var totalProducts = await _context.products.CountAsync();
+
+            var totalInventoryValue =
+                await _context.products.SumAsync(x =>(decimal?) x.price * x.quantity) ??0;
+
+            var lowStockProducts =
+                await _context.products.CountAsync(x => x.quantity < 5);
+
+            var totalCategories =
+                await _context.products
+                    .Select(x => x.category)
+                    .Distinct()
+                    .CountAsync();
+            var productsByCategory =
+    await _context.products
+        .GroupBy(x => x.category)
+        .Select(x => new CategoryCountDTO
+        {
+            Category = x.Key,
+            Count = x.Count()
+        })
+        .ToListAsync();
+
+            return new DashboardDTO
+            {
+                TotalProducts = totalProducts,
+                TotalInventoryValue = totalInventoryValue,
+                LowStockProducts = lowStockProducts,
+                TotalCategories = totalCategories,
+                ProductsByCategory = productsByCategory
+            };
+        }
     }    
 }

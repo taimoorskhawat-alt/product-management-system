@@ -1,28 +1,12 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\095ceeec-0d74-43e2-83d0-5df121596430.jfif",
-      "PackagePath": "staticwebassets\\uploads\\095ceeec-0d74-43e2-83d0-5df121596430.jfif"
+      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\59c91278-c826-47a8-b2cd-a9f3aaaf1816.png",
+      "PackagePath": "staticwebassets\\uploads\\59c91278-c826-47a8-b2cd-a9f3aaaf1816.png"
     },
     {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\279621c4-2cd8-470e-9ff2-e25d2da789a0.png",
-      "PackagePath": "staticwebassets\\uploads\\279621c4-2cd8-470e-9ff2-e25d2da789a0.png"
-    },
-    {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\30297205-f054-4b40-bdb7-54c3448ec074.jpg",
-      "PackagePath": "staticwebassets\\uploads\\30297205-f054-4b40-bdb7-54c3448ec074.jpg"
-    },
-    {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\3a8dd78c-d187-46e2-a296-d7714ab7b721.jpg",
-      "PackagePath": "staticwebassets\\uploads\\3a8dd78c-d187-46e2-a296-d7714ab7b721.jpg"
-    },
-    {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\80a1b898-67a5-4493-b3eb-2c418e25c3d7.jfif",
-      "PackagePath": "staticwebassets\\uploads\\80a1b898-67a5-4493-b3eb-2c418e25c3d7.jfif"
-    },
-    {
-      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\9a8eb76a-8467-489f-a862-d3bb52d42cc4.jfif",
-      "PackagePath": "staticwebassets\\uploads\\9a8eb76a-8467-489f-a862-d3bb52d42cc4.jfif"
+      "Id": "C:\\Users\\dev-23\\Desktop\\ProductMS\\Backend\\prodAPIPrac2\\wwwroot\\uploads\\ffb9bb0d-d223-4e5d-ad99-ba9e7aec111e.jpg",
+      "PackagePath": "staticwebassets\\uploads\\ffb9bb0d-d223-4e5d-ad99-ba9e7aec111e.jpg"
     },
     {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.build.prodAPIPrac2.props",
