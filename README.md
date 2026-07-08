@@ -89,6 +89,6 @@ ng serve
 
 **Taimoor Sakhawat**
 
-- GitHub: https://github.com/taumurskhawat-alt
+- GitHub: https://github.com/taimoorskhawat-alt
 
 ---
