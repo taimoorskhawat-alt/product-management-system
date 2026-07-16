@@ -18,8 +18,7 @@ namespace prodAPIPrac2.repositary
             {
                 query = query.Where(x =>
                     x.name.Contains(search) 
-                    
-                    
+                  
                   );
             }
             if (!string.IsNullOrEmpty(category))

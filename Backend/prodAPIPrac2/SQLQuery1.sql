@@ -1,1 +1,1 @@
-﻿DELETE FROM users WHERE Email = 'admin@gmail.com'
+﻿

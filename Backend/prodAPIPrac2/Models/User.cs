@@ -1,4 +1,6 @@
-﻿namespace prodAPIPrac2.Models
+﻿using prodAPIPrac2.Order_models;
+
+namespace prodAPIPrac2.Models
 {
     public class User
     {
@@ -11,5 +13,6 @@
         public string PasswordHash { get; set; } = string.Empty;
 
         public string Role { get; set; } = "User";
+        public ICollection<Orders> Orders { get; set; } = new List<Orders>();
     }
 }

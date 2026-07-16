@@ -6,6 +6,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/authservice';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule, TouchedChangeEvent } from '@angular/forms';
+import { Subject,debounceTime,distinctUntilChanged,takeUntil } from 'rxjs';
 @Component({
   selector: 'app-products',
   imports: [CommonModule,RouterLink,FormsModule],
@@ -23,6 +24,7 @@ totalCount: number = 0;
 sortColumn = '';
 sortAscending = true;
 searchText:string='';
+private searchSubject = new Subject<string>();
   newProduct = {
     name: '',
     category: '',
@@ -38,6 +40,20 @@ searchText:string='';
   return this.auth.getRole();
 }
 ngOnInit(): void {
+  this.searchSubject
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    )
+    .subscribe(() => {
+
+      this.currentPage = 1;
+      this.loadProducts();
+
+    });
+
+
+
   this.loadProducts();
 }
  
@@ -211,9 +227,14 @@ onPageSizeChange() {
   this.currentPage = 1;
   this.loadProducts();
 }
-onSearchChange() {
-  this.currentPage = 1;
-  this.loadProducts();
+onSearchInput(event: Event) {
+
+  const value = (event.target as HTMLInputElement).value;
+
+  this.searchText = value;
+
+  this.searchSubject.next(value);
+
 }
 onCategoryChange() {
   this.currentPage = 1;

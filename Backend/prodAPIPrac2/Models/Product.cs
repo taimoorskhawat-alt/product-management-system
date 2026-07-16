@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using prodAPIPrac2.Order_models;
+using System.ComponentModel.DataAnnotations;
 
 namespace prodAPIPrac2.Models
 {
@@ -14,6 +15,7 @@ namespace prodAPIPrac2.Models
         public string? brand { get; set; }
         public string? description { get; set; }
         public string? ImageUrl { get; set; }
+        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     }
 }

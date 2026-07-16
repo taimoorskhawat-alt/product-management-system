@@ -77,6 +77,8 @@ builder.Services.AddDbContext<appdbcontext>(options
 builder.Services.AddScoped<IProduct, Prodrepo>();
 builder.Services.AddScoped<Iprodservice, ProductService>();
 builder.Services.AddScoped<IuserService, UserService>();
+builder.Services.AddScoped<IOrder, OrderRepo>();
+builder.Services.AddScoped<IorderService, OrderService>();
 builder.Services.AddControllers();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
