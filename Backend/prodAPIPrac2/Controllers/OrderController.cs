@@ -33,10 +33,16 @@ namespace prodAPIPrac2.Controllers
         public async Task<IActionResult> GetOrdersByUser()
         {
             var userId = int.Parse(
-       User.FindFirst(ClaimTypes.NameIdentifier)!.Value
-   );
+       User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
             var orders=await _orderService.GetOrdersByUser(userId);
 
+            return Ok(orders);
+        }
+        [HttpGet("all-orders")]
+        [Authorize(Roles ="Admin")]
+        public async Task<IActionResult> GetAllOrders()
+        {
+            var orders = await _orderService.GetAllOrders();
             return Ok(orders);
         }
 

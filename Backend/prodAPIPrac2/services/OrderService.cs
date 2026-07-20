@@ -18,6 +18,11 @@ namespace prodAPIPrac2.services
         {
             return await _orderRepo.GetOrdersByUser(userId);
         }
-       
+        public async Task<List<OrderResponseDTO>>  GetAllOrders()
+        {
+            return await _orderRepo.GetAllOrders();
+        }
+
+
     }
 }

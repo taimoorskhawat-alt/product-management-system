@@ -13,9 +13,29 @@ namespace prodAPIPrac2.repositary
             _context = context;
         }
 
-        public Task<List<OrderResponseDTO>> GetAllOrders()
+        public async Task<List<OrderResponseDTO>> GetAllOrders()
         {
-            throw new NotImplementedException();
+            var orders = await _context.Orders
+         .Include(o => o.OrderItems)
+         .OrderByDescending(o => o.OrderDate)
+         .ToListAsync();
+
+            return orders.Select(order => new OrderResponseDTO
+            {
+                Id = order.Id,
+                UserId = order.UserId,
+                OrderDate = order.OrderDate,
+                TotalAmount = order.TotalAmount,
+                Status = order.Status,
+
+                OrderItems = order.OrderItems.Select(item => new OrderItemResponseDTO
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    PriceAtPurchase = item.PriceAtPurchase
+                }).ToList()
+
+            }).ToList();
         }
 
         public Task<OrderResponseDTO?> GetOrderById(int id)
